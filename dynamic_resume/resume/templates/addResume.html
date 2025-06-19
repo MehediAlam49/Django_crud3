@@ -1,1 +1,180 @@
-ECHO is on.
+{% extends 'master.html' %}
+
+{% block body %}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+    }
+    
+    h2 {
+      text-align: center;
+      margin: 20px 0;
+      color: #1f2937;
+    }
+    
+    form {
+      max-width: 1100px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-section {
+      margin-bottom: 30px;
+    }
+    
+    .form-section h3 {
+      color: #334155;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 5px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .form-group label {
+      flex: 1 1 250px;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      color: #475569;
+    }
+    
+    input[type='text'],
+    input[type='email'],
+    input[type='number'],
+    input[type='file'],
+    select,
+    textarea {
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      margin-top: 6px;
+      font-size: 15px;
+      background: #f8fafc;
+    }
+    
+    input[type='file'] {
+      background: #fff;
+    }
+    
+    textarea {
+      resize: vertical;
+    }
+    
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .checkbox-group label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkbox-group input {
+      margin-right: 8px;
+    }
+    
+    button {
+      background-color: #0ea5e9;
+      color: white;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    
+    button:hover {
+      background-color: #0284c7;
+    }
+  </style>
+
+  <h2>Add Resume</h2>
+
+  <form action="#" method="post" enctype="multipart/form-data">
+    <!-- Personal Info -->
+    <div class="form-section">
+      <h3>Personal Information</h3>
+      <div class="form-group">
+        <label>Profile Picture<input type="file" name="image" required /></label>
+        <label>Full Name<input type="text" name="fullName" required /></label>
+        <label>Profession<input type="text" name="profession" required /></label>
+        <label>Profile Description<textarea name="description" rows="3"></textarea></label>
+        <label>Address<input type="text" name="address" /></label>
+        <label>Phone<input type="text" name="phone" /></label>
+        <label>Email<input type="email" name="email" /></label>
+        <label>Number of Projects<input type="number" name="projects" /></label>
+        <label>Number of Followers<input type="number" name="followers" /></label>
+        <label>Number of Likes<input type="number" name="likes" /></label>
+        <label>About<textarea name="about" rows="3"></textarea></label>
+      </div>
+    </div>
+
+    <!-- Social Profiles -->
+    <div class="form-section">
+      <h3>Social Profiles</h3>
+      <div class="form-group">
+        <label>Facebook Username<input type="text" name="facebook" /></label>
+        <label>GitHub Username<input type="text" name="github" /></label>
+        <label>LinkedIn Username<input type="text" name="linkedin" /></label>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="form-section">
+      <h3>Education</h3>
+      <div class="form-group">
+        <label>Department<input type="text" name="department" /></label>
+        <label>University<input type="text" name="university" /></label>
+        <label>Graduation Year<input type="number" name="grad_year" /></label>
+        <label>Institute<input type="text" name="institute" /></label>
+        <label>Learning Progress<textarea name="progress" rows="3"></textarea></label>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="form-section">
+      <h3>Skills</h3>
+      <div class="form-group">
+        <label>HTML<input type="number" name="html" placeholder="e.g, 90%" /></label>
+        <label>CSS<input type="number" name="css" placeholder="e.g, 90%" /></label>
+        <label>ReactJS<input type="number" name="react" placeholder="e.g, 90%" /></label>
+        <label>VueJS<input type="number" name="vue" placeholder="e.g, 90%" /></label>
+        <label>Python<input type="number" name="python" placeholder="e.g, 90%" /></label>
+        <label>Django<input type="number" name="django" placeholder="e.g, 90%"/></label>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="form-section">
+      <h3>Tools</h3>
+      <div class="form-group">
+        <label>Photoshop<input type="number" name="photoshop" placeholder="e.g, 90%" value="Photoshop" /></label>
+        <label>Sublime<input type="number" name="sublime" placeholder="e.g, 90%" value="Sublime" /></label>
+        <label>Git<input type="number" name="git" placeholder="e.g, 90%" value="Git" /></label>
+        <label>NPM<input type="number" name="npm" placeholder="e.g, 90%" value="NPM" /></label>
+      </div>
+    </div>
+
+    <button type="submit">Submit Resume</button>
+  </form>
+{% endblock %}

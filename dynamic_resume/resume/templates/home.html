@@ -1,500 +1,490 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'master.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        :root {
-            --navbar-height: 30px;
-            --avatar-border: 8px solid #8497b0;
-            --MATH-PI: 3.1415px;
-            --percent: 100;
-        }
+{% block body %}
+<style>
+    :root {
+      --navbar-height: 30px;
+      --avatar-border: 8px solid #8497b0;
+      --MATH-PI: 3.1415px;
+      --percent: 100;
+    }
+    
+    .card__outer {
+      position: relative;
+      width: 100%;
+      max-width: 350px;
+      min-height: 450px;
+      perspective: 700px;
+      margin: 0 auto;
+      margin-top: 40px;
+    }
+    
+    .card {
+      transition: transform 0.5s;
+      transition-timing-function: cubic-bezier(0, 1.21, 1, 1.11);
+      transform-style: preserve-3d;
+    }
+    
+    .card.slide-flip {
+      transform-origin: center right;
+    }
+    
+    .card__face {
+      backface-visibility: hidden;
+    }
+    
+    .card__face--front {
+      position: relative;
+    }
+    
+    .card__face--back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotateY(180deg);
+    }
+    
+    .card.updown-flip > .card__face--back {
+      transform: rotateX(-180deg);
+    }
+    
+    .card__outer:hover > .card {
+      transform: rotateY(-180deg);
+    }
+    
+    .card__outer:hover > .card.slide-flip {
+      transform: translateX(-100%) rotateY(-180deg);
+    }
+    
+    .card__outer:hover > .card.updown-flip {
+      transform: rotateX(-180deg);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    html {
+      font-size: 16px;
+      font-family: Calibri;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #e9e9e9;
+    }
+    
+    .pfCard__wrapper {
+      --color-default: #4b4b4b;
+      --color-bg: white;
+      --color-navbar: #6b6b6b;
+      --color-primary: #262626;
+      --color-secondary: #5173b8;
+      --color-content: #6b6b6b;
+      --color-stat-heading: #929292;
+      --color-btn: #4e607a;
+      --color-btn-word: white;
+      --color-sunny: rgb(237, 131, 65);
+      --color-night: rgb(31, 78, 121);
+    
+      position: relative;
+      width: 100%;
+      height: inherit;
+      border-radius: 15px;
+      overflow: hidden;
+      background-color: var(--color-bg);
+      box-shadow: 0 5px 5px 2px #737373;
+      color: var(--color-default);
+    }
+    
+    .pfCard__bio {
+      position: relative;
+      width: 100%;
+    }
+    
+    .pfCard__bio > img {
+      width: 100%;
+      filter: brightness(0.7);
+      pointer-events: none;
+      user-select: none;
+    }
+    
+    .pfCard__content {
+      position: relative;
+      padding: 20px;
+      padding-top: 60px;
+    }
+    
+    .pfCard__avatar {
+      width: 200px;
+      margin: 0 auto;
+      text-align: center;
+      pointer-events: none;
+      user-select: none;
+    }
+    
+    .pfCard__avatar--pic {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 120px;
+      height: 120px;
+      border: var(--avatar-border);
+      border-radius: 50%;
+    }
+    
+    .avatar__description > h1 {
+      margin: 0;
+      margin-top: 5px;
+      font-weight: 500;
+      font-size: 25px;
+      color: var(--color-primary, #262626);
+    }
+    
+    .avatar__description > p {
+      margin-top: 5px;
+      font-size: 13px;
+      color: var(--color-secondary, #929292);
+    }
+    
+    .pfCard__stat {
+      margin-top: 20px;
+    }
+    
+    .statList {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      margin: 0;
+      padding: 0 10px;
+    }
+    
+    .statList__item {
+      text-align: center;
+    }
+    
+    .statList__item > h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--color-stat-heading, #929292);
+    }
+    
+    .statList__item > p {
+      font-size: 25px;
+      margin: 0;
+      margin-top: 12px;
+    }
+    
+    .pfCard__description {
+      text-align: center;
+    }
+    
+    .pfCard__description > p {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: var(--color-content);
+    }
+    
+    .description__location {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-secondary);
+      font-size: 13px;
+    }
+    
+    .description__location > i {
+      margin-right: 5px;
+    }
+    
+    /* font special color*/
+    .sunny {
+      color: var(--color-sunny);
+    }
+    
+    .night {
+      color: var(--color-night);
+    }
+    
+    .pfCard__avatar--back {
+      text-align: center;
+    }
+    
+    .pfCard__content--back {
+      padding-top: 60px;
+    }
+    
+    .pfCard__avatar--back {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      top: -30px;
+      left: 50%;
+      transform: translate(-50%, 0);
+    
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(124, 170, 142);
+      border-radius: 50%;
+      box-shadow: 0px 2px 4px 2px rgba(10, 10, 10, 0.7);
+    }
+    
+    .pfCard__avatar--back > i {
+      color: white;
+    }
+    
+    .pg-list {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .pg-list__item {
+      position: relative;
+      flex: 0 0 30%;
+      margin: 15px 5px;
+    }
+    
+    .pg-list__item > svg {
+      transform: rotateZ(-90deg) rotateX(180deg);
+      fill: transparent;
+    }
+    
+    .pg-list__item > svg > circle {
+      stroke-width: 1px;
+      stroke: #cdcdcd;
+    }
+    
+    .pg-list__item > svg > circle.cbar {
+      stroke-width: 5px;
+      stroke: var(--icon_theme, black);
+      stroke-linecap: round;
+      stroke-dashoffset: calc(var(--MATH-PI) * 45 * 2 * (1 - var(--percent)));
+      stroke-dasharray: calc(var(--MATH-PI) * 45 * 2);
+      transition: all 0.8s;
+      transition-timing-function: cubic-bezier(0.64, 0.51, 0.16, 0.86);
+    }
+    
+    .pg-list__item > i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      color: var(--icon_theme, gray);
+    }
+    
+    .icon__html {
+      --icon_theme: rgb(255, 109, 0);
+    }
+    
+    .icon__css {
+      --icon_theme: rgb(52, 125, 198);
+    }
+    
+    .icon__js {
+      --icon_theme: rgb(237, 217, 66);
+    }
+    
+    .icon__react {
+      --icon_theme: rgb(105, 181, 251);
+    }
+    
+    .icon__android {
+      --icon_theme: rgb(135, 188, 64);
+    }
+    
+    .pfCard__func-section {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px 5px;
+      padding-bottom: 25px;
+    }
+    
+    .func-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .func-list__item {
+      flex: 0 0 33.3333%;
+      text-align: center;
+      color: rgb(78, 96, 122);
+      font-size: 24px;
+    }
+    
+    .func-list__item > i {
+      transition: all 0.3s;
+    }
+    
+    .func-list__item > i:hover {
+      color: rgb(108, 128, 158);
+      cursor: pointer;
+    }
+    
+    .func-list__item > i.pulse {
+      animation: pulse 0.4s forwards;
+    }
+    
+    .func-list__item > i.checked {
+      color: rgb(75, 183, 219);
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+    
+      50% {
+        transform: scale(1.5);
+      }
+    
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 
-        .card__outer {
-            position: relative;
-            width: 100%;
-            max-width: 350px;
-            min-height: 450px;
-            perspective: 700px;
-        }
-
-        .card {
-            transition: transform 0.5s;
-            transition-timing-function: cubic-bezier(0, 1.21, 1, 1.11);
-            transform-style: preserve-3d;
-        }
-
-        .card.slide-flip {
-            transform-origin: center right;
-        }
-
-        .card__face {
-            backface-visibility: hidden;
-        }
-
-        .card__face--front {
-            position: relative;
-        }
-
-        .card__face--back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transform: rotateY(180deg);
-        }
-
-        .card.updown-flip>.card__face--back {
-            transform: rotateX(-180deg);
-        }
-
-        .card__outer:hover>.card {
-            transform: rotateY(-180deg);
-        }
-
-        .card__outer:hover>.card.slide-flip {
-            transform: translateX(-100%) rotateY(-180deg);
-        }
-
-        .card__outer:hover>.card.updown-flip {
-            transform: rotateX(-180deg);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: 16px;
-            font-family: Calibri;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #e9e9e9;
-        }
-
-        .pfCard__wrapper {
-            --color-default: #4b4b4b;
-            --color-bg: white;
-            --color-navbar: #6b6b6b;
-            --color-primary: #262626;
-            --color-secondary: #5173b8;
-            --color-content: #6b6b6b;
-            --color-stat-heading: #929292;
-            --color-btn: #4e607a;
-            --color-btn-word: white;
-            --color-sunny: rgb(237, 131, 65);
-            --color-night: rgb(31, 78, 121);
-
-            position: relative;
-            width: 100%;
-            height: inherit;
-            border-radius: 15px;
-            overflow: hidden;
-            background-color: var(--color-bg);
-            box-shadow: 0 5px 5px 2px #737373;
-            color: var(--color-default);
-        }
-
-        .pfCard__bio {
-            position: relative;
-            width: 100%;
-        }
-
-        .pfCard__bio>img {
-            width: 100%;
-            filter: brightness(0.7);
-            pointer-events: none;
-            user-select: none;
-        }
-
-        .pfCard__content {
-            position: relative;
-            padding: 20px;
-            padding-top: 60px;
-        }
-
-        .pfCard__avatar {
-            width: 200px;
-            margin: 0 auto;
-            text-align: center;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        .pfCard__avatar--pic {
-            position: absolute;
-            top: -60px;
-            left: 50%;
-            transform: translate(-50%, 0);
-            width: 120px;
-            height: 120px;
-            border: var(--avatar-border);
-            border-radius: 50%;
-        }
-
-        .avatar__description>h1 {
-            margin: 0;
-            margin-top: 5px;
-            font-weight: 500;
-            font-size: 25px;
-            color: var(--color-primary, #262626);
-        }
-
-        .avatar__description>p {
-            margin-top: 5px;
-            font-size: 13px;
-            color: var(--color-secondary, #929292);
-        }
-
-        .pfCard__stat {
-            margin-top: 20px;
-        }
-
-        .statList {
-            list-style: none;
-            display: flex;
-            justify-content: space-between;
-            margin: 0;
-            padding: 0 10px;
-        }
-
-        .statList__item {
-            text-align: center;
-        }
-
-        .statList__item>h1 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0;
-            color: var(--color-stat-heading, #929292);
-        }
-
-        .statList__item>p {
-            font-size: 25px;
-            margin: 0;
-            margin-top: 12px;
-        }
-
-        .pfCard__description {
-            text-align: center;
-        }
-
-        .pfCard__description>p {
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: var(--color-content);
-        }
-
-        .description__location {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-secondary);
-            font-size: 13px;
-        }
-
-        .description__location>i {
-            margin-right: 5px;
-        }
-
-        /* font special color*/
-        .sunny {
-            color: var(--color-sunny);
-        }
-
-        .night {
-            color: var(--color-night);
-        }
-
-        .pfCard__avatar--back {
-            text-align: center;
-        }
-
-        .pfCard__content--back {
-            padding-top: 60px;
-        }
-
-        .pfCard__avatar--back {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            top: -30px;
-            left: 50%;
-            transform: translate(-50%, 0);
-
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgb(124, 170, 142);
-            border-radius: 50%;
-            box-shadow: 0px 2px 4px 2px rgba(10, 10, 10, 0.7);
-        }
-
-        .pfCard__avatar--back>i {
-            color: white;
-        }
-
-        .pg-list {
-            display: flex;
-            flex-wrap: wrap;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .pg-list__item {
-            position: relative;
-            flex: 0 0 30%;
-            margin: 15px 5px;
-        }
-
-        .pg-list__item>svg {
-            transform: rotateZ(-90deg) rotateX(180deg);
-            fill: transparent;
-        }
-
-        .pg-list__item>svg>circle {
-            stroke-width: 1px;
-            stroke: #cdcdcd;
-        }
-
-        .pg-list__item>svg>circle.cbar {
-            stroke-width: 5px;
-            stroke: var(--icon_theme, black);
-            stroke-linecap: round;
-            stroke-dashoffset: calc(var(--MATH-PI) * 45 * 2 * (1 - var(--percent)));
-            stroke-dasharray: calc(var(--MATH-PI) * 45 * 2);
-            transition: all 0.8s;
-            transition-timing-function: cubic-bezier(.64, .51, .16, .86);
-        }
-
-        .pg-list__item>i {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 30px;
-            color: var(--icon_theme, gray);
-        }
-
-        .icon__html {
-            --icon_theme: rgb(255, 109, 0);
-        }
-
-        .icon__css {
-            --icon_theme: rgb(52, 125, 198);
-        }
-
-        .icon__js {
-            --icon_theme: rgb(237, 217, 66);
-        }
-
-        .icon__react {
-            --icon_theme: rgb(105, 181, 251);
-        }
-
-        .icon__android {
-            --icon_theme: rgb(135, 188, 64);
-        }
-
-        .pfCard__func-section {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 10px 5px;
-            padding-bottom: 25px;
-        }
-
-        .func-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .func-list__item {
-            flex: 0 0 33.3333%;
-            text-align: center;
-            color: rgb(78, 96, 122);
-            font-size: 24px;
-        }
-
-        .func-list__item>i {
-            transition: all 0.3s;
-        }
-
-        .func-list__item>i:hover {
-            color: rgb(108, 128, 158);
-            cursor: pointer;
-        }
-
-        .func-list__item>i.pulse {
-            animation: pulse 0.4s forwards;
-        }
-
-        .func-list__item>i.checked {
-            color: rgb(75, 183, 219);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.5);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="card__outer">
-        <div class="card">
-            <div class="card__face card__face--front">
-                <div class="pfCard__wrapper">
-                    <header class="pfCard__bio">
-                        <img src="https://i.imgur.com/GmtnxSy.jpg">
-                    </header>
-                    <div class="pfCard__content">
-                        <div class="pfCard__avatar">
-                            <img class="pfCard__avatar--pic" src="https://i.imgur.com/0A5JNO1.png">
-                            <div class="avatar__description">
-                                <h1>Lovely Paw</h1>
-                                <p>Web Developer</p>
-                            </div>
-                        </div>
-                        <div class="pfCard__description">
-                            <p>
-                                Student by <span class="sunny">day</span>, front-end developer by <span
-                                    class="night">night</span>. Like dogs and cats and own the cutest dog in the world.
-                            </p>
-                            <div class="description__location">
-                                <i class="far fa-map-marker-alt"></i>
-                                <span>Kaohsiung, Taiwan</span>
-                            </div>
-                        </div>
-                        <div class="pfCard__stat">
-                            <ul class="statList">
-                                <li class="statList__item">
-                                    <h1>Project</h1>
-                                    <p>27</p>
-                                </li>
-                                <li class="statList__item">
-                                    <h1>Follower</h1>
-                                    <p>13.5K</p>
-                                </li>
-                                <li class="statList__item">
-                                    <h1>Likes</h1>
-                                    <p>8.4K</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+  <div class="card__outer">
+    <div class="card">
+      <div class="card__face card__face--front">
+        <div class="pfCard__wrapper">
+          <header class="pfCard__bio">
+            <img src="https://i.imgur.com/GmtnxSy.jpg" />
+          </header>
+          <div class="pfCard__content">
+            <div class="pfCard__avatar">
+              <img class="pfCard__avatar--pic" src="https://i.imgur.com/0A5JNO1.png" />
+              <div class="avatar__description">
+                <h1>Lovely Paw</h1>
+                <p>Web Developer</p>
+              </div>
             </div>
-            <div class="card__face card__face--back">
-                <div class="pfCard__wrapper">
-                    <header class="pfCard__bio">
-                        <img src="https://i.imgur.com/TdPg2U6.jpg">
-                    </header>
-                    <div class="pfCard__content pfCard__content--back">
-                        <div class="pfCard__avatar--back">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <div class="pfCard__pg-section">
-                            <ul class="pg-list">
-                                <li class="pg-list__item icon__html">
-                                    <svg viewbox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45"></circle>
-                                        <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6;"></circle>
-                                    </svg>
-                                    <i class="fab fa-html5"></i>
-                                </li>
-                                <li class="pg-list__item icon__css">
-                                    <svg viewbox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45"></circle>
-                                        <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.8;"></circle>
-                                    </svg>
-                                    <i class="fab fa-css3-alt"></i>
-                                </li>
-                                <li class="pg-list__item icon__js">
-                                    <svg viewbox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45"></circle>
-                                        <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.7;"></circle>
-                                    </svg>
-                                    <i class="fab fa-js-square"></i>
-                                </li>
-                                <li class="pg-list__item icon__react">
-                                    <svg viewbox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45"></circle>
-                                        <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.74;"></circle>
-                                    </svg>
-                                    <i class="fab fa-react"></i>
-                                </li>
-                                <li class="pg-list__item icon__android">
-                                    <svg viewbox="0 0 100 100">
-                                        <circle cx="50" cy="50" r="45"></circle>
-                                        <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6;"></circle>
-                                    </svg>
-                                    <i class="fab fa-android"></i>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <footer>
-                        <div class="pfCard__func-section">
-                            <ul class="func-list">
-                                <li class="func-list__item">
-                                    <i class="fal fa-paper-plane"></i>
-                                </li>
-                                <li class="func-list__item">
-                                    <i class="fal fa-home"></i>
-                                </li>
-                                <li class="func-list__item">
-                                    <i id="follow" title="add user" class="fas fa-user-plus"></i>
-                                </li>
-                            </ul>
-                        </div>
-                    </footer>
-                </div>
+            <div class="pfCard__description">
+              <p>
+                Student by <span class="sunny">day</span>, front-end developer by <span class="night">night</span>. Like dogs and cats and own the cutest dog in the world.
+              </p>
+              <div class="description__location">
+                <i class="far fa-map-marker-alt"></i>
+                <span>Kaohsiung, Taiwan</span>
+              </div>
             </div>
+            <div class="pfCard__stat">
+              <ul class="statList">
+                <li class="statList__item">
+                  <h1>Project</h1>
+                  <p>27</p>
+                </li>
+                <li class="statList__item">
+                  <h1>Follower</h1>
+                  <p>13.5K</p>
+                </li>
+                <li class="statList__item">
+                  <h1>Likes</h1>
+                  <p>8.4K</p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="card__face card__face--back">
+        <div class="pfCard__wrapper">
+          <header class="pfCard__bio">
+            <img src="https://i.imgur.com/TdPg2U6.jpg" />
+          </header>
+          <div class="pfCard__content pfCard__content--back">
+            <div class="pfCard__avatar--back">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="pfCard__pg-section">
+              <ul class="pg-list">
+                <li class="pg-list__item icon__html">
+                  <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45"></circle>
+                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6;"></circle>
+                  </svg>
+                  <i class="fab fa-html5"></i>
+                </li>
+                <li class="pg-list__item icon__css">
+                  <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45"></circle>
+                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.8;"></circle>
+                  </svg>
+                  <i class="fab fa-css3-alt"></i>
+                </li>
+                <li class="pg-list__item icon__js">
+                  <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45"></circle>
+                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.7;"></circle>
+                  </svg>
+                  <i class="fab fa-js-square"></i>
+                </li>
+                <li class="pg-list__item icon__react">
+                  <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45"></circle>
+                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.74;"></circle>
+                  </svg>
+                  <i class="fab fa-react"></i>
+                </li>
+                <li class="pg-list__item icon__android">
+                  <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45"></circle>
+                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6;"></circle>
+                  </svg>
+                  <i class="fab fa-android"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <footer>
+            <div class="pfCard__func-section">
+              <ul class="func-list">
+                <li class="func-list__item">
+                  <i class="fal fa-paper-plane"></i>
+                </li>
+                <li class="func-list__item">
+                  <i class="fal fa-home"></i>
+                </li>
+                <li class="func-list__item">
+                  <i id="follow" title="add user" class="fas fa-user-plus"></i>
+                </li>
+              </ul>
+            </div>
+          </footer>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        var followBtn = document.querySelector('#follow');
+  <script>
+    var followBtn = document.querySelector('#follow')
+    
+    followBtn.addEventListener('click', function (e) {
+      this.classList.toggle('fa-user-plus')
+      this.classList.toggle('fa-user-check')
+    
+      if (this.classList.toggle('checked')) {
+        this.classList.add('pulse')
+        setTimeout(() => {
+          this.classList.remove('pulse')
+        }, 500)
+      }
+    })
+  </script>
+{% endblock %}
 
-        followBtn.addEventListener('click', function (e) {
-            this.classList.toggle('fa-user-plus');
-            this.classList.toggle('fa-user-check')
-
-            if (this.classList.toggle('checked')) {
-                this.classList.add('pulse');
-                setTimeout(() => {
-                    this.classList.remove('pulse');
-                }, 500);
-            }
-        });
-    </script>
-
-</body>
-
-</html>
