@@ -110,22 +110,24 @@
 
   <h2>Add Resume</h2>
 
-  <form action="#" method="post" enctype="multipart/form-data">
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
     <!-- Personal Info -->
     <div class="form-section">
       <h3>Personal Information</h3>
       <div class="form-group">
         <label>Profile Picture<input type="file" name="image" required /></label>
-        <label>Full Name<input type="text" name="fullName" required /></label>
-        <label>Profession<input type="text" name="profession" required /></label>
-        <label>Profile Description<textarea name="description" rows="3"></textarea></label>
-        <label>Address<input type="text" name="address" /></label>
-        <label>Phone<input type="text" name="phone" /></label>
-        <label>Email<input type="email" name="email" /></label>
-        <label>Number of Projects<input type="number" name="projects" /></label>
-        <label>Number of Followers<input type="number" name="followers" /></label>
-        <label>Number of Likes<input type="number" name="likes" /></label>
-        <label>About<textarea name="about" rows="3"></textarea></label>
+        <label>Full Name<input type="text" name="fullName" placeholder="Enter your Full name" required /></label>
+        <label>Profession<input type="text" name="profession" placeholder="e.g, Software Engineer" required /></label>
+        <label>Profile Description<textarea name="description" placeholder="About profession" rows="3"></textarea></label>
+        <label>City<input type="text" name="city" placeholder="Enter your city" /></label>
+        <label>Country<input type="text" name="country" placeholder="Enter your Country" /></label>
+        <label>Phone<input type="text" name="phone" placeholder="Enter your phone Number" /></label>
+        <label>Email<input type="email" name="email" placeholder="Enter your Email" /></label>
+        <label>Number of Projects<input type="number" name="projects" placeholder="e.g, 125" /></label>
+        <label>Number of Followers<input type="number" name="followers" placeholder="e.g, 45k" /></label>
+        <label>Number of Likes<input type="number" name="likes" placeholder="e.g, 78k" /></label>
+        <label>About<textarea name="about" placeholder="Enter About yourself" rows="3"></textarea></label>
       </div>
     </div>
 
@@ -133,9 +135,9 @@
     <div class="form-section">
       <h3>Social Profiles</h3>
       <div class="form-group">
-        <label>Facebook Username<input type="text" name="facebook" /></label>
-        <label>GitHub Username<input type="text" name="github" /></label>
-        <label>LinkedIn Username<input type="text" name="linkedin" /></label>
+        <label>Facebook Username<input type="text" name="facebook" placeholder="Enter your facebook Username" /></label>
+        <label>GitHub Username<input type="text" name="github" placeholder="Enter your GitHub username" /></label>
+        <label>LinkedIn Username<input type="text" name="linkedin" placeholder="Enter your LinkedIn username" /></label>
       </div>
     </div>
 
@@ -143,11 +145,11 @@
     <div class="form-section">
       <h3>Education</h3>
       <div class="form-group">
-        <label>Department<input type="text" name="department" /></label>
-        <label>University<input type="text" name="university" /></label>
-        <label>Graduation Year<input type="number" name="grad_year" /></label>
-        <label>Institute<input type="text" name="institute" /></label>
-        <label>Learning Progress<textarea name="progress" rows="3"></textarea></label>
+        <label>Department<input type="text" name="department" placeholder="Department Name. e.g, CSE" /></label>
+        <label>University<input type="text" name="university" placeholder="Enter your University Name" /></label>
+        <label>Graduation Year<input type="text" name="grad_year" placeholder="e.g, 2018 - 2022" /></label>
+        <label>Institute<input type="text" name="institute" placeholder="Enter your institute name" /></label>
+        <label>Learning progress<input type="text" name="progress" placeholder="e.g, 2024 - present" /></label>
       </div>
     </div>
 
