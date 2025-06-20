@@ -17,7 +17,7 @@
       --pgbar-length: 100%;
     
       --MATH-PI: 3.1415px;
-      --percent: 100;
+      {% comment %} --percent: 100; {% endcomment %}
     }
     
     html {
@@ -305,6 +305,7 @@
     .tool-list > li:hover > svg > circle.cbar {
       stroke-width: 4px;
       stroke: var(--color-tiffany);
+      --percent: calc(var(--raw-percent) / 100);
       stroke-dashoffset: calc(var(--MATH-PI) * 45 * 2 * (1 - var(--percent)));
     }
     .tool-list > li > .tl-name,
@@ -421,70 +422,73 @@
     <div class="intro">
       <div class="profile">
         <div class="photo">
-          <img src="https://i.imgur.com/zh9eNsh.jpg" />
+          <img src="{{ resume.profileImage.url }}" alt="profile" />
         </div>
         <div class="bio">
-          <h1 class="name">Chih-Hsiang Chen</h1>
-          <p class="profession">Front-end Developer</p>
+          <h1 class="name">{{resume.fullName}}</h1>
+          <p class="profession">{{resume.profession}}</p>
         </div>
       </div>
       <div class="intro-section about">
         <h1 class="title">about me</h1>
-        <p class="paragraph">Hi everyone, I am a web front-end developer, graduated from NTHU, Taiwan and my major is CS. I recently try my best to improve my skills on web front-end. My favorite thing is to observe others' portfolio.</p>
+        <p class="paragraph">{{resume.about}}</p>
       </div>
       <div class="intro-section contact">
         <h1 class="title">Contact</h1>
         <div class="info-section">
           <i class="fas fa-phone"></i>
-          <span>(+886)888-888-888</span>
+          <span>{{resume.phone}}</span>
         </div>
         <div class="info-section">
           <i class="fas fa-map-marker-alt"></i>
-          <span>Kaoshiung, Taiwan</span>
+          <span>{{resume.city}}, {{resume.country}}</span>
         </div>
         <div class="info-section">
-          <i class="fas fa-paper-plane"></i>
-          <span>chih.hsi.chen@gmail.com</span>
+          <i class="fa-solid fa-envelope"></i>
+          <span>{{resume.email}}</span>
         </div>
         <div class="info-section link">
           <i class="fab fa-facebook"></i>
-          <a target="_blank" rel="author" href="https://www.facebook.com/profile.php?id=100006277752355"><span>陳志祥</span></a>
+          <a target="_blank" rel="author" href="https://www.facebook.com/MehediAlam49/"><span>{{resume.facebook}}</span></a>
         </div>
       </div>
       <div class="intro-section follow">
         <h1 class="title">Follow</h1>
         <div class="info-section link">
           <i class="fab fa-github"></i>
-          <a target="_blank" rel="author" href="https://github.com/chih-hsi-chen"><span>chih-hsi-chen@github</span></a>
+          <a target="_blank" rel="author" href="https://github.com/MehediAlam49"><span>{{resume.github}}</span></a>
         </div>
         <div class="info-section link">
-          <i class="fab fa-codepen"></i>
-          <a target="_blank" rel="author" href="https://codepen.io/chih-hsi-chen"><span>codepen.io</span></a>
+          <i class="fa-brands fa-linkedin"></i>
+          <a target="_blank" rel="author" href="https://www.linkedin.com/in/mehedialam49/"><span>{{resume.linkedin}}</span></a>
         </div>
         <div class="info-section link">
-          <i class="fab fa-medium"></i>
-          <a target="_blank" rel="author" href="https://medium.com/狗奴工程師"><span>狗奴工程師</span></a>
+
+          <i class="fa-brands fa-youtube"></i>
+          <a target="_blank" rel="author" href="https://www.youtube.com/@mehedialam49/"><span>mehedialam49</span></a>
         </div>
       </div>
     </div>
+
+
     <div class="detail">
       <div class="detail-section edu">
         <div class="detail-title">
           <div class="title-icon">
             <i class="fas fa-user-graduate"></i>
           </div>
-          <span>Eduation</span>
+          <span>Education</span>
         </div>
         <div class="detail-content">
           <div class="timeline-block">
             <h1>Department of Computer Science</h1>
-            <p>National Tsing Hua University, Taiwan</p>
-            <time>2015 - 2019</time>
+            <p>{{resume.university}}, {{resume.counrty}}</p>
+            <time>{{resume.grad_year}}</time>
           </div>
           <div class="timeline-block">
-            <h1>Institute of Computer Science and Engineering</h1>
-            <p>National Chiao Tung University, Taiwan</p>
-            <time>2020 - present</time>
+            <h1>{{resume.institute}}</h1>
+            <p>Daffodil International University, {{resume.city}}</p>
+            <time>{{resume.progress}}</time>
           </div>
         </div>
       </div>
@@ -500,43 +504,37 @@
             <li>
               <span>HTML5</span>
               <div class="sb-skeleton">
-                <div class="skillbar" style="--pgbar-length: 90%"></div>
+                <div class="skillbar" style="--pgbar-length: {{resume.html}}%"></div>
               </div>
             </li>
             <li>
               <span>CSS3</span>
               <div class="sb-skeleton">
-                <div class="skillbar" style="--pgbar-length: 75%"></div>
+                <div class="skillbar" style="--pgbar-length: {{resume.css}}%"></div>
               </div>
             </li>
             <li>
               <span>Javascript</span>
               <div class="sb-skeleton">
-                <div class="skillbar" style="--pgbar-length: 70%"></div>
-              </div>
-            </li>
-            <li>
-              <span>JQuery</span>
-              <div class="sb-skeleton">
-                <div class="skillbar" style="--pgbar-length: 50%"></div>
-              </div>
-            </li>
-            <li>
-              <span>NodeJS</span>
-              <div class="sb-skeleton">
-                <div class="skillbar" style="--pgbar-length: 70%"></div>
+                <div class="skillbar" style="--pgbar-length: {{resume.vue}}%"></div>
               </div>
             </li>
             <li>
               <span>ReactJS</span>
               <div class="sb-skeleton">
-                <div class="skillbar" style="--pgbar-length: 75%"></div>
+                <div class="skillbar" style="--pgbar-length: {{resume.react}}%"></div>
               </div>
             </li>
             <li>
-              <span>VueJS</span>
+              <span>Python</span>
               <div class="sb-skeleton">
-                <div class="skillbar" style="--pgbar-length: 40%"></div>
+                <div class="skillbar" style="--pgbar-length: {{resume.python}}%"></div>
+              </div>
+            </li>
+            <li>
+              <span>Django</span>
+              <div class="sb-skeleton">
+                <div class="skillbar" style="--pgbar-length: {{resume.django}}%"></div>
               </div>
             </li>
           </ul>
@@ -554,34 +552,34 @@
             <li>
               <svg viewbox="0 0 100 100">
                 <circle cx="50" cy="50" r="45"></circle>
-                <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6"></circle>
+                <circle class="cbar" cx="50" cy="50" r="45" style="--raw-percent: {{resume.photoshop}}"></circle>
               </svg>
               <span class="tl-name">Photoshop</span>
-              <span class="tl-exp">60%</span>
+              <span class="tl-exp">{{resume.photoshop}}%</span>
             </li>
             <li>
               <svg viewbox="0 0 100 100">
                 <circle cx="50" cy="50" r="45"></circle>
-                <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.8"></circle>
+                <circle class="cbar" cx="50" cy="50" r="45" style="--raw-percent: {{resume.sublime}}"></circle>
               </svg>
               <span class="tl-name">Sublime</span>
-              <span class="tl-exp">80%</span>
+              <span class="tl-exp">{{resume.sublime}}%</span>
             </li>
             <li>
               <svg viewbox="0 0 100 100">
                 <circle cx="50" cy="50" r="45"></circle>
-                <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.7"></circle>
+                <circle class="cbar" cx="50" cy="50" r="45" style="--raw-percent: {{resume.git}}"></circle>
               </svg>
               <span class="tl-name">Git</span>
-              <span class="tl-exp">70%</span>
+              <span class="tl-exp">{{resume.git}}%</span>
             </li>
             <li>
               <svg viewbox="0 0 100 100">
                 <circle cx="50" cy="50" r="45"></circle>
-                <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.74"></circle>
+                <circle class="cbar" cx="50" cy="50" r="45" style="--raw-percent: {{resume.npm}}"></circle>
               </svg>
               <span class="tl-name">NPM</span>
-              <span class="tl-exp">74%</span>
+              <span class="tl-exp">{{resume.npm}}%</span>
             </li>
           </ul>
         </div>
@@ -605,11 +603,11 @@
                 <span>Pet</span>
               </li>
               <li>
-                <i class="far fa-headphones-alt"></i>
+                <i class="fa-solid fa-headphones"></i>
                 <span>Music</span>
               </li>
               <li>
-                <i class="fas fa-book-spells"></i>
+                <i class="fa-solid fa-book"></i>
                 <span>Self-learning</span>
               </li>
               <li>

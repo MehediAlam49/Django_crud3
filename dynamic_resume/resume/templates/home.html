@@ -1,12 +1,13 @@
 {% extends 'master.html' %}
 
 {% block body %}
-<style>
+  <style>
     :root {
       --navbar-height: 30px;
       --avatar-border: 8px solid #8497b0;
       --MATH-PI: 3.1415px;
-      --percent: 100;
+      {% comment %} --raw-percent: --new-percent; {% endcomment %}
+      {% comment %} --percent: calc(var(--new-percent) / 100); {% endcomment %}
     }
     
     .card__outer {
@@ -267,6 +268,7 @@
       stroke-width: 5px;
       stroke: var(--icon_theme, black);
       stroke-linecap: round;
+      --percent: calc(var(--new-percent) / 100);
       stroke-dashoffset: calc(var(--MATH-PI) * 45 * 2 * (1 - var(--percent)));
       stroke-dasharray: calc(var(--MATH-PI) * 45 * 2);
       transition: all 0.8s;
@@ -359,120 +361,122 @@
     }
   </style>
 
-  <div class="card__outer">
-    <div class="card">
-      <div class="card__face card__face--front">
-        <div class="pfCard__wrapper">
-          <header class="pfCard__bio">
-            <img src="https://i.imgur.com/GmtnxSy.jpg" />
-          </header>
-          <div class="pfCard__content">
-            <div class="pfCard__avatar">
-              <img class="pfCard__avatar--pic" src="https://i.imgur.com/0A5JNO1.png" />
-              <div class="avatar__description">
-                <h1>Lovely Paw</h1>
-                <p>Web Developer</p>
+  {% for resume in resume %}
+    <div class="card__outer">
+      <div class="card">
+        <div class="card__face card__face--front">
+          <div class="pfCard__wrapper">
+            <header class="pfCard__bio">
+              <img src="https://i.imgur.com/GmtnxSy.jpg" />
+            </header>
+            <div class="pfCard__content">
+              <div class="pfCard__avatar">
+                <img class="pfCard__avatar--pic" src="{{ resume.profileImage }}" />
+                <div class="avatar__description">
+                  <h1>{{ resume.fullName }}</h1>
+                  <p>{{ resume.profession }}</p>
+                </div>
               </div>
-            </div>
-            <div class="pfCard__description">
-              <p>
-                Student by <span class="sunny">day</span>, front-end developer by <span class="night">night</span>. Like dogs and cats and own the cutest dog in the world.
-              </p>
-              <div class="description__location">
-                <i class="far fa-map-marker-alt"></i>
-                <span>Kaohsiung, Taiwan</span>
+              <div class="pfCard__description">
+                <p>{{ resume.description }}</p>
+                <div class="description__location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ resume.city }}, {{ resume.country }}</span>
+                </div>
               </div>
-            </div>
-            <div class="pfCard__stat">
-              <ul class="statList">
-                <li class="statList__item">
-                  <h1>Project</h1>
-                  <p>27</p>
-                </li>
-                <li class="statList__item">
-                  <h1>Follower</h1>
-                  <p>13.5K</p>
-                </li>
-                <li class="statList__item">
-                  <h1>Likes</h1>
-                  <p>8.4K</p>
-                </li>
-              </ul>
+              <div class="pfCard__stat">
+                <ul class="statList">
+                  <li class="statList__item">
+                    <h1>Project</h1>
+                    <p>{{ resume.projects }}</p>
+                  </li>
+                  <li class="statList__item">
+                    <h1>Follower</h1>
+                    <p>{{ resume.followers }}</p>
+                  </li>
+                  <li class="statList__item">
+                    <h1>Likes</h1>
+                    <p>{{ resume.likes }}</p>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="card__face card__face--back">
-        <div class="pfCard__wrapper">
-          <header class="pfCard__bio">
-            <img src="https://i.imgur.com/TdPg2U6.jpg" />
-          </header>
-          <div class="pfCard__content pfCard__content--back">
-            <div class="pfCard__avatar--back">
-              <i class="fas fa-code"></i>
+
+        {% comment %}--------Face Back------------{% endcomment %}
+        <div class="card__face card__face--back">
+          <div class="pfCard__wrapper">
+            <header class="pfCard__bio">
+              <img src="https://i.imgur.com/TdPg2U6.jpg" />
+            </header>
+            <div class="pfCard__content pfCard__content--back">
+              <div class="pfCard__avatar--back">
+                <i class="fas fa-code"></i>
+              </div>
+              <div class="pfCard__pg-section">
+                <ul class="pg-list">
+                  <li class="pg-list__item icon__html">
+                    <svg viewbox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45"></circle>
+                      <circle class="cbar" cx="50" cy="50" r="45" style="--new-percent: {{resume.html}};"></circle>
+                    </svg>
+                    <i class="fab fa-html5"></i>
+                  </li>
+                  <li class="pg-list__item icon__css">
+                    <svg viewbox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45"></circle>
+                      <circle class="cbar" cx="50" cy="50" r="45" style="--new-percent: {{resume.css}};"></circle>
+                    </svg>
+                    <i class="fab fa-css3-alt"></i>
+                  </li>
+                  <li class="pg-list__item icon__js">
+                    <svg viewbox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45"></circle>
+                      <circle class="cbar" cx="50" cy="50" r="45" style="--new-percent: {{resume.vue}};"></circle>
+                    </svg>
+                    <i class="fab fa-js-square"></i>
+                  </li>
+                  <li class="pg-list__item icon__react">
+                    <svg viewbox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45"></circle>
+                      <circle class="cbar" cx="50" cy="50" r="45" style="--new-percent: {{resume.react}};"></circle>
+                    </svg>
+                    <i class="fab fa-react"></i>
+                  </li>
+                  <li class="pg-list__item icon__android">
+                    <svg viewbox="0 0 100 100">
+                      <circle cx="50" cy="50" r="45"></circle>
+                      <circle class="cbar" cx="50" cy="50" r="45" style="--new-percent: {{resume.python}};"></circle>
+                    </svg>
+                    <i class="fa-brands fa-python"></i>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="pfCard__pg-section">
-              <ul class="pg-list">
-                <li class="pg-list__item icon__html">
-                  <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45"></circle>
-                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6;"></circle>
-                  </svg>
-                  <i class="fab fa-html5"></i>
-                </li>
-                <li class="pg-list__item icon__css">
-                  <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45"></circle>
-                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.8;"></circle>
-                  </svg>
-                  <i class="fab fa-css3-alt"></i>
-                </li>
-                <li class="pg-list__item icon__js">
-                  <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45"></circle>
-                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.7;"></circle>
-                  </svg>
-                  <i class="fab fa-js-square"></i>
-                </li>
-                <li class="pg-list__item icon__react">
-                  <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45"></circle>
-                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.74;"></circle>
-                  </svg>
-                  <i class="fab fa-react"></i>
-                </li>
-                <li class="pg-list__item icon__android">
-                  <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="45"></circle>
-                    <circle class="cbar" cx="50" cy="50" r="45" style="--percent: 0.6;"></circle>
-                  </svg>
-                  <i class="fab fa-android"></i>
-                </li>
-              </ul>
-            </div>
+            <footer>
+              <div class="pfCard__func-section">
+                <ul class="func-list">
+                  <li class="func-list__item">
+                    <a href="{% url 'viewResume' resume.id %}" style="color: green;"><i class="fa-solid fa-eye" title="View"></i></a>
+                  </li>
+                  <li class="func-list__item">
+                    <a href="{% url 'editResume' resume.id %}"><i class="fa-solid fa-pen-to-square" title="Edit"></i></a>
+                  </li>
+                  <li class="func-list__item">
+                    <a href="{% url 'deleteResume' resume.id %}" style="color: red;"><i class="fa-solid fa-trash" title="Delete"></i></a>
+                  </li>
+                  <li class="func-list__item">
+                    <i id="follow" title="add user" class="fas fa-user-plus"></i>
+                  </li>
+                </ul>
+              </div>
+            </footer>
           </div>
-          <footer>
-            <div class="pfCard__func-section">
-              <ul class="func-list">
-                <li class="func-list__item">
-                  <i class="fa-solid fa-eye" title="View"></i>
-                </li>
-                <li class="func-list__item">
-                  <i class="fa-solid fa-pen-to-square" title="Edit"></i>
-                </li>
-                <li class="func-list__item">
-                  <i class="fa-solid fa-trash" title="Delete"></i>
-                </li>
-                <li class="func-list__item">
-                  <i id="follow" title="add user" class="fas fa-user-plus"></i>
-                </li>
-              </ul>
-            </div>
-          </footer>
         </div>
       </div>
     </div>
-  </div>
+  {% endfor %}
 
   <script>
     var followBtn = document.querySelector('#follow')
@@ -490,4 +494,3 @@
     })
   </script>
 {% endblock %}
-

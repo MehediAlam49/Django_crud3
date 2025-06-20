@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('addResume/', addResume, name='addResume'),
-    path('viewResume/', viewResume, name='viewResume'),
-    path('editResume/', editResume, name='editResume'),
-    path('deleteResume/', deleteResume, name='deleteResume'),
+    path('viewResume/<str:id>', viewResume, name='viewResume'),
+    path('editResume/<str:id>', editResume, name='editResume'),
+    path('deleteResume/<str:id>', deleteResume, name='deleteResume'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
