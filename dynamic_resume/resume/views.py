@@ -71,7 +71,7 @@ def editResume(request,id):
         resumeData.npm = request.POST.get('npm')
 
         picture = request.FILES.get('profileImage')
-        if picture.profileImage is not None:
+        if picture is not None:
             resumeData.profileImage = picture
         resumeData.save()
         return redirect('home')

@@ -108,7 +108,7 @@
     }
   </style>
 
-  <h2>Add Resume</h2>
+  <h2>Edit Resume</h2>
 
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -116,18 +116,19 @@
     <div class="form-section">
       <h3>Personal Information</h3>
       <div class="form-group">
-        <label>Profile Picture<input type="file" name="profileImage" required /></label>
-        <label>Full Name<input type="text" name="fullName" placeholder="Enter your Full name" required /></label>
-        <label>Profession<input type="text" name="profession" placeholder="e.g, Software Engineer" required /></label>
-        <label>Profile Description<textarea name="description" placeholder="About profession" rows="3"></textarea></label>
-        <label>City<input type="text" name="city" placeholder="Enter your city" /></label>
-        <label>Country<input type="text" name="country" placeholder="Enter your Country" /></label>
-        <label>Phone<input type="text" name="phone" placeholder="Enter your phone Number" /></label>
-        <label>Email<input type="email" name="email" placeholder="Enter your Email" /></label>
-        <label>Number of Projects<input type="number" name="projects" placeholder="e.g, 125" /></label>
-        <label>Number of Followers<input type="text" name="followers" placeholder="e.g, 45k" /></label>
-        <label>Number of Likes<input type="text" name="likes" placeholder="e.g, 78k" /></label>
-        <label>About<textarea name="about" placeholder="Enter About yourself" rows="3"></textarea></label>
+        <img src="{{ resume.profileImage.url }}" alt="profile" width="100px" />
+        <label>Profile Picture<input type="file" name="profileImage" /></label>
+        <label>Full Name<input type="text" name="fullName" value="{{resume.fullName}}" placeholder="Enter your Full name" required /></label>
+        <label>Profession<input type="text" name="profession" value="{{resume.profession}}" placeholder="e.g, Software Engineer" required /></label>
+        <label>Profile Description<textarea name="description" placeholder="About profession" rows="3">{{resume.description}}</textarea></label>
+        <label>City<input type="text" name="city" value="{{resume.city}}" placeholder="Enter your city" /></label>
+        <label>Country<input type="text" name="country" value="{{resume.country}}" placeholder="Enter your Country" /></label>
+        <label>Phone<input type="text" name="phone" value="{{resume.phone}}" placeholder="Enter your phone Number" /></label>
+        <label>Email<input type="email" name="email" value="{{resume.email}}" placeholder="Enter your Email" /></label>
+        <label>Number of Projects<input type="number" name="projects" value="{{resume.projects}}" placeholder="e.g, 125" /></label>
+        <label>Number of Followers<input type="text" name="followers" value="{{resume.followers}}" placeholder="e.g, 45k" /></label>
+        <label>Number of Likes<input type="text" name="likes" value="{{resume.likes}}" placeholder="e.g, 78k" /></label>
+        <label>About<textarea name="about" placeholder="Enter About yourself" rows="3">{{resume.about}}</textarea></label>
       </div>
     </div>
 
@@ -135,9 +136,9 @@
     <div class="form-section">
       <h3>Social Profiles</h3>
       <div class="form-group">
-        <label>Facebook Username<input type="text" name="facebook" placeholder="Enter your facebook Username" /></label>
-        <label>GitHub Username<input type="text" name="github" placeholder="Enter your GitHub username" /></label>
-        <label>LinkedIn Username<input type="text" name="linkedin" placeholder="Enter your LinkedIn username" /></label>
+        <label>Facebook Username<input type="text" name="facebook" value="{{resume.facebook}}" placeholder="Enter your facebook Username" /></label>
+        <label>GitHub Username<input type="text" name="github" value="{{resume.github}}" placeholder="Enter your GitHub username" /></label>
+        <label>LinkedIn Username<input type="text" name="linkedin" value="{{resume.linkedin}}" placeholder="Enter your LinkedIn username" /></label>
       </div>
     </div>
 
@@ -145,11 +146,11 @@
     <div class="form-section">
       <h3>Education</h3>
       <div class="form-group">
-        <label>Department<input type="text" name="department" placeholder="Department Name. e.g, CSE" /></label>
-        <label>University<input type="text" name="university" placeholder="Enter your University Name" /></label>
-        <label>Graduation Year<input type="text" name="grad_year" placeholder="e.g, 2018 - 2022" /></label>
-        <label>Institute<input type="text" name="institute" placeholder="Enter your institute name" /></label>
-        <label>Learning progress<input type="text" name="progress" placeholder="e.g, 2024 - present" /></label>
+        <label>Department<input type="text" name="department" value="{{resume.department}}" placeholder="Department Name. e.g, CSE" /></label>
+        <label>University<input type="text" name="university" value="{{resume.university}}" placeholder="Enter your University Name" /></label>
+        <label>Graduation Year<input type="text" name="grad_year" value="{{resume.grad_year}}" placeholder="e.g, 2018 - 2022" /></label>
+        <label>Institute<input type="text" name="institute" value="{{resume.institute}}" placeholder="Enter your institute name" /></label>
+        <label>Learning progress<input type="text" name="progress" value="{{resume.progress}}" placeholder="e.g, 2024 - present" /></label>
       </div>
     </div>
 
@@ -157,12 +158,12 @@
     <div class="form-section">
       <h3>Skills</h3>
       <div class="form-group">
-        <label>HTML<input type="number" name="html" placeholder="e.g, 90%" /></label>
-        <label>CSS<input type="number" name="css" placeholder="e.g, 90%" /></label>
-        <label>ReactJS<input type="number" name="react" placeholder="e.g, 90%" /></label>
-        <label>VueJS<input type="number" name="vue" placeholder="e.g, 90%" /></label>
-        <label>Python<input type="number" name="python" placeholder="e.g, 90%" /></label>
-        <label>Django<input type="number" name="django" placeholder="e.g, 90%"/></label>
+        <label>HTML<input type="number" name="html" value="{{resume.html}}" placeholder="e.g, 90%" /></label>
+        <label>CSS<input type="number" name="css" value="{{resume.css}}" placeholder="e.g, 90%" /></label>
+        <label>ReactJS<input type="number" name="react" value="{{resume.react}}" placeholder="e.g, 90%" /></label>
+        <label>VueJS<input type="number" name="vue" value="{{resume.vue}}" placeholder="e.g, 90%" /></label>
+        <label>Python<input type="number" name="python" value="{{resume.python}}" placeholder="e.g, 90%" /></label>
+        <label>Django<input type="number" name="django" value="{{resume.django}}" placeholder="e.g, 90%"/></label>
       </div>
     </div>
 
@@ -170,13 +171,13 @@
     <div class="form-section">
       <h3>Tools</h3>
       <div class="form-group">
-        <label>Photoshop<input type="number" name="photoshop" placeholder="e.g, 90%" value="Photoshop" /></label>
-        <label>Sublime<input type="number" name="sublime" placeholder="e.g, 90%" value="Sublime" /></label>
-        <label>Git<input type="number" name="git" placeholder="e.g, 90%" value="Git" /></label>
-        <label>NPM<input type="number" name="npm" placeholder="e.g, 90%" value="NPM" /></label>
+        <label>Photoshop<input type="number" name="photoshop" value="{{resume.photoshop}}" placeholder="e.g, 90%" value="Photoshop" /></label>
+        <label>Sublime<input type="number" name="sublime" value="{{resume.sublime}}" placeholder="e.g, 90%" value="Sublime" /></label>
+        <label>Git<input type="number" name="git" value="{{resume.git}}" placeholder="e.g, 90%" value="Git" /></label>
+        <label>NPM<input type="number" name="npm" value="{{resume.npm}}" placeholder="e.g, 90%" value="NPM" /></label>
       </div>
     </div>
 
-    <button type="submit">Submit Resume</button>
+    <button type="submit">Update Resume</button>
   </form>
 {% endblock %}
