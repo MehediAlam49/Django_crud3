@@ -396,6 +396,29 @@
         height: 100px;
       }
     }
+
+    .actions{
+      margin-top: 40px;
+      display: block;
+      text-align: center;
+    }
+    .actions a{
+      padding: 10px 30px;
+      text-decoration: none;
+      font-size: x-large;
+    }
+    .actions .view{
+      color: green;
+    }
+    .actions .edit{
+      color: blue;
+    }
+    .actions .delete{
+      color: red;
+    }
+    .actions .add{
+      color: gray;
+    }
     
     @media (max-width: 768px) {
       html {
@@ -618,8 +641,21 @@
           </div>
         </div>
       </div>
+      <div class="actions detail-section">
+        <div class="detail-title">
+          <div class="title-icon">
+            <i class="fa-solid fa-hammer"></i>
+          </div>
+          <span>Actions</span>
+        </div>
+        <a href="{% url 'viewResume' resume.id %}" class="view"><i class="fa-solid fa-eye" title="View"></i></a>
+        <a href="{% url 'editResume' resume.id %}" class="edit"><i class="fa-solid fa-pen-to-square" title="Edit"></i></a>
+        <a href="{% url 'deleteResume' resume.id %}" class="delete"><i class="fa-solid fa-trash" title="Delete"></i></a>
+        <a href="{% url 'addResume' %}" class="add"><i id="follow" title="add user" class="fas fa-user-plus"></i></a>
+      </div>
     </div>
   </div>
+ 
 
   <script>
     ;(function () {

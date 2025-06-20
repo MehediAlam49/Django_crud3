@@ -39,6 +39,7 @@ def addResume(request):
         resumeData.save()
         return redirect('home')
     return render(request, 'addResume.html')
+
 def editResume(request,id):
     resumeData = resumeModel.objects.get(id=id)
     if request.method == 'POST':
@@ -76,8 +77,11 @@ def editResume(request,id):
         resumeData.save()
         return redirect('home')
     return render(request, 'editResume.html', {'resume': resumeData})
+
 def viewResume(request,id):
     resumeData = resumeModel.objects.get(id=id)
     return render(request, 'viewResume.html', {'resume': resumeData})
+
 def deleteResume(request,id):
+    resume = resumeModel.objects.get(id=id).delete()
     return redirect('home')
